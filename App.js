@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -7,10 +7,12 @@ export default class App extends React.Component {
     this.state = {
       circleVisible: false,
       timeVisible: false,
-    }
+    };
     this.addCircle = this.addCircle.bind(this);
     this.elapsedTime = this.elapsedTime.bind(this);
+    this.reset = this.reset.bind(this);
     this.tapCircle = this.tapCircle.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
 
   addCircle() {
@@ -19,11 +21,20 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-   setTimeout(this.addCircle, 1000 + Math.random() * 2000);
+    this.startGame();
   }
 
   elapsedTime() {
     return (this.state.endTime - this.state.startTime) + 'ms';
+  }
+
+  reset() {
+    this.setState({ circleVisible: false, timeVisible: false });
+    this.startGame();
+  }
+
+  startGame() {
+    setTimeout(this.addCircle, 1000 + Math.random() * 2000);
   }
 
   tapCircle() {
@@ -42,8 +53,11 @@ export default class App extends React.Component {
     }
     if (this.state.timeVisible) {
       children.push(
-        <Text key='elapsedTime'>{this.elapsedTime()}</Text>
-      )
+        <Text key='elapsedTime' style={styles.elapsedTime}>{this.elapsedTime()}</Text>
+      );
+      children.push(
+        <Button key='button' title='Reset' onPress={this.reset} />
+      );
     }
 
     return (
@@ -66,5 +80,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  elapsedTime: {
+    fontSize: 30
   },
 });
