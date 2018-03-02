@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "react-native-scripts": "1.8.1",
-    "jest-expo": "23.0.0",
+    "jest-expo": "24.0.0",
     "react-test-renderer": "16.0.0"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
@@ -12,6 +12,7 @@
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
+    "clean": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && npm cache verify && yarn install && npm start -- --reset-cache",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
@@ -19,7 +20,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "expo": "^23.0.4",
+    "expo": "24.0.2",
     "react": "16.0.0",
     "react-native": "0.50.3"
   }
